@@ -10,14 +10,13 @@ options:
     stackable.tech/vendor: Stackable
   podLabels:
     stackable.tech/vendor: Stackable
-  replicaCount: 1
   ingress:
-    enabled: false
+    enabled: "false"
   mode:
     standalone:
-      enabled: true
+      enabled: "true"
     distributed:
-      enabled: false
+      enabled: "false"
   storageclass:
     name: ""
   secret:
