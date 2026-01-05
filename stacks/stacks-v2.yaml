@@ -260,7 +260,7 @@ stacks:
       memory: 8192Mi
       pvc: 21Gi
     parameters: []
-  nifi-kafka-druid-superset-s3:
+  nifi-kafka-druid-superset-rustfs:
     description: Stack containing NiFi, Kafka, Druid, MinIO and Superset for data visualization
     stackableRelease: dev
     stackableOperators:
@@ -280,14 +280,14 @@ stacks:
       - minio
       - s3
     manifests:
-      - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/minio.yaml
-      - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-druid.yaml
-      - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-superset.yaml
-      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/zookeeper.yaml
-      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/kafka.yaml
-      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/druid.yaml
-      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/superset.yaml
-      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/nifi.yaml
+      - helmChart: https://raw.githubusercontent.com/jimvin/demos/main/stacks/_templates/rustfs.yaml
+      # - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-druid.yaml
+      # - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-superset.yaml
+      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/zookeeper.yaml
+      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/kafka.yaml
+      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/druid.yaml
+      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/superset.yaml
+      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/nifi.yaml
     supportedNamespaces: []
     resourceRequests:
       cpu: 8900m
@@ -300,9 +300,12 @@ stacks:
       - name: supersetAdminPassword
         description: Password of the Superset admin user
         default: adminadmin
-      - name: minioAdminPassword
-        description: Password of the MinIO admin user
-        default: adminadmin
+      - name: rustfsAdminUsername
+        description: Username of the RustFS admin user
+        default: rustfsadmin
+      - name: rustfsAdminPassword
+        description: Password of the RustFS admin user
+        default: rustfsadmin
       - name: supersetSecretKey
         description: Superset's secret key used to generate e.g. user session tokens
         default: adminadmin
