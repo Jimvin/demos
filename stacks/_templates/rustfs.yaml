@@ -11,11 +11,11 @@ options:
   podLabels:
     stackable.tech/vendor: Stackable
 ingress:
-  enabled: "false"
+  enabled: false
 mode:
   standalone:
-    enabled: "true"
+    enabled: true
   distributed:
-    enabled: "false"
+    enabled: false
 storageclass:
   name: ""
