@@ -5,22 +5,22 @@ repo:
   name: rustfs
   url: https://charts.rustfs.com/
 version: 0.0.78
-# options:
-#   additionalLabels:
-#     stackable.tech/vendor: Stackable
-#   podLabels:
-#     stackable.tech/vendor: Stackable
-ingress:
-  enabled: false
-mode:
-  standalone:
-    enabled: true
-  distributed:
+options:
+  # additionalLabels:
+  #   stackable.tech/vendor: Stackable
+  # podLabels:
+  #   stackable.tech/vendor: Stackable
+  ingress:
     enabled: false
-storageclass:
-  name: ""
-secret:
-  rustfs:
-    access_key: "{{ rustfsAdminUsername }}"
-    secret_key: "{{ rustfsAdminPassword }}"
+  mode:
+    standalone:
+      enabled: true
+    distributed:
+      enabled: false
+  storageclass:
+    name: ""
+  secret:
+    rustfs:
+      access_key: "{{ rustfsAdminUsername }}"
+      secret_key: "{{ rustfsAdminPassword }}"
   
