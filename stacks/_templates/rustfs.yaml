@@ -19,4 +19,4 @@ options:
       enabled: false
   storageclass:
     name: ""
-replicaCount: 1
+  replicaCount: 1
