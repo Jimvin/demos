@@ -4,7 +4,7 @@ name: rustfs
 repo:
   name: rustfs
   url: https://charts.rustfs.com/
-version: 0.0.78
+version: 0.0.78 
 options:
   additionalLabels:
     stackable.tech/vendor: Stackable
@@ -15,9 +15,12 @@ options:
   mode:
     standalone:
       enabled: true
+    distributed:
+      enabled: false
   storageclass:
     name: ""
   secret:
     rustfs:
       access_key: "{{ rustfsAdminUsername }}"
       secret_key: "{{ rustfsAdminPassword }}"
+  
