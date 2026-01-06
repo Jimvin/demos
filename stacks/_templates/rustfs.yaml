@@ -5,10 +5,11 @@ repo:
   name: rustfs
   url: https://charts.rustfs.com/
 version: 0.0.78 
-additionalLabels:
-  stackable.tech/vendor: Stackable
-podLabels:
-  stackable.tech/vendor: Stackable
+options:
+  additionalLabels:
+    stackable.tech/vendor: Stackable
+  podLabels:
+    stackable.tech/vendor: Stackable
 ingress:
   enabled: "false"
 mode:
