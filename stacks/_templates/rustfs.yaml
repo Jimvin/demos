@@ -4,19 +4,19 @@ name: rustfs
 repo:
   name: rustfs
   url: https://charts.rustfs.com/
-version: 0.0.78 
+version: 0.0.78
 options:
   additionalLabels:
     stackable.tech/vendor: Stackable
   podLabels:
     stackable.tech/vendor: Stackable
   ingress:
-    enabled: false
+    enabled: "false"
   mode:
     standalone:
-      enabled: true
+      enabled: "true"
     distributed:
-      enabled: false
+      enabled: "false"
   storageclass:
     name: ""
   secret:
