@@ -15,11 +15,9 @@ options:
   mode:
     standalone:
       enabled: true
-    distributed:
-      enabled: false
   storageclass:
     name: ""
-  # secret:
-  #   rustfs:
-  #     access_key: "{{ rustfsAdminUsername }}"
-  #     secret_key: "{{ rustfsAdminPassword }}"
+  secret:
+    rustfs:
+      access_key: "{{ rustfsAdminUsername }}"
+      secret_key: "{{ rustfsAdminPassword }}"
