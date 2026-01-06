@@ -277,7 +277,7 @@ stacks:
       - kafka
       - druid
       - superset
-      - minio
+      - rustfs
       - s3
     manifests:
       - helmChart: https://raw.githubusercontent.com/jimvin/demos/main/stacks/_templates/rustfs.yaml
