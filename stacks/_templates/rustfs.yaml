@@ -19,4 +19,8 @@ options:
       enabled: false
   storageclass:
     name: ""
-  replicaCount: 1
+  secret:
+    rustfs:
+      access_key: "{{ rustfsAdminUsername }}"
+      secret_key: "{{ rustfsAdminPassword }}"
+  
