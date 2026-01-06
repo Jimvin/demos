@@ -21,7 +21,7 @@ spec:
             bucketName: demo
             connection:
               inline:
-                host: minio
+                host: rustfs-svc
                 port: 9000
                 accessStyle: Path
                 credentials:
@@ -97,8 +97,8 @@ metadata:
   labels:
     secrets.stackable.tech/class: druid-s3-credentials
 stringData:
-  accessKey: admin
-  secretKey: {{ minioAdminPassword }}
+  accessKey: {{ rustfsAdminUsername }}
+  secretKey: {{ rustfsAdminPassword }}
 ---
 apiVersion: v1
 kind: Secret

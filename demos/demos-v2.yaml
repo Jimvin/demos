@@ -103,7 +103,7 @@ demos:
       - kafka
       - druid
       - superset
-      - minio
+      - rustfs
       - s3
       - earthquakes
     manifests:

@@ -260,8 +260,8 @@ stacks:
       memory: 8192Mi
       pvc: 21Gi
     parameters: []
-  nifi-kafka-druid-superset-rustfs:
-    description: Stack containing NiFi, Kafka, Druid, MinIO and Superset for data visualization
+  nifi-kafka-druid-superset-s3:
+    description: Stack containing NiFi, Kafka, Druid, RustFS and Superset for data visualization
     stackableRelease: dev
     stackableOperators:
       - commons
@@ -280,14 +280,15 @@ stacks:
       - rustfs
       - s3
     manifests:
-      - helmChart: https://raw.githubusercontent.com/jimvin/demos/main/stacks/_templates/rustfs.yaml
-      # - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-druid.yaml
-      # - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-superset.yaml
-      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/zookeeper.yaml
-      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/kafka.yaml
-      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/druid.yaml
-      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/superset.yaml
-      # - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/nifi.yaml
+      - helmChart: stacks/_templates/rustfs.yaml
+      - plainYaml: stacks/nifi-kafka-druid-superset-s3/create-bucket.yaml
+      - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-druid.yaml
+      - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-superset.yaml
+      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/zookeeper.yaml
+      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/kafka.yaml
+      - plainYaml: stacks/nifi-kafka-druid-superset-s3/druid.yaml
+      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/superset.yaml
+      - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/nifi.yaml
     supportedNamespaces: []
     resourceRequests:
       cpu: 8900m
