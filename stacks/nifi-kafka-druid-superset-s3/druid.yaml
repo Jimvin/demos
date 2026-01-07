@@ -21,8 +21,8 @@ spec:
             bucketName: demo
             connection:
               inline:
-                host: rustfs-svc
-                port: 9000
+                host: garage
+                port: 3900
                 accessStyle: Path
                 credentials:
                   secretClass: druid-s3-credentials
@@ -64,7 +64,7 @@ spec:
               min: "1"
               max: "4" # Need enough CPU cores to run multiple ingestion jobs at once
             memory:
-              limit: 16Gi
+              limit: 4Gi
   routers:
     roleConfig:
       listenerClass: external-stable
@@ -79,31 +79,3 @@ metadata:
 spec:
   clusterRef:
     name: zookeeper
----
-apiVersion: secrets.stackable.tech/v1alpha1
-kind: SecretClass
-metadata:
-  name: druid-s3-credentials
-spec:
-  backend:
-    k8sSearch:
-      searchNamespace:
-        pod: {}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: druid-s3-credentials
-  labels:
-    secrets.stackable.tech/class: druid-s3-credentials
-stringData:
-  accessKey: {{ rustfsAdminUsername }}
-  secretKey: {{ rustfsAdminPassword }}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: druid-db-credentials
-stringData:
-  username: druid
-  password: druid

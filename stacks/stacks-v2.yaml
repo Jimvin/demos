@@ -261,7 +261,7 @@ stacks:
       pvc: 21Gi
     parameters: []
   nifi-kafka-druid-superset-s3:
-    description: Stack containing NiFi, Kafka, Druid, RustFS and Superset for data visualization
+    description: Stack containing NiFi, Kafka, Druid, Garage and Superset for data visualization
     stackableRelease: dev
     stackableOperators:
       - commons
@@ -277,11 +277,13 @@ stacks:
       - kafka
       - druid
       - superset
-      - rustfs
+      - garage
       - s3
     manifests:
-      - helmChart: stacks/_templates/rustfs.yaml
-      - plainYaml: stacks/nifi-kafka-druid-superset-s3/create-bucket.yaml
+      - plainYaml: stacks/nifi-kafka-druid-superset-s3/serviceaccount.yaml
+      - plainYaml: stacks/nifi-kafka-druid-superset-s3/druid-s3-credentials.yaml
+      - plainYaml: stacks/_templates/garage/rendered-chart.yaml
+      - plainYaml: stacks/nifi-kafka-druid-superset-s3/initialise-garage.yaml
       - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-druid.yaml
       - helmChart: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/_templates/postgresql-superset.yaml
       - plainYaml: https://raw.githubusercontent.com/stackabletech/demos/main/stacks/nifi-kafka-druid-superset-s3/zookeeper.yaml
@@ -301,15 +303,18 @@ stacks:
       - name: supersetAdminPassword
         description: Password of the Superset admin user
         default: adminadmin
-      - name: rustfsAdminUsername
-        description: Username of the RustFS admin user
-        default: rustfsadmin
-      - name: rustfsAdminPassword
-        description: Password of the RustFS admin user
-        default: rustfsadmin
+      - name: s3AccessKey
+        description: S3 access key for Garage
+        default: PLACEHOLDERACCESSKEY
+      - name: s3SecretKey
+        description: S3 secret key for Garage
+        default: PLACEHOLDERSECRETKEY
       - name: supersetSecretKey
         description: Superset's secret key used to generate e.g. user session tokens
         default: adminadmin
+      - name: garageVolumeSize
+        description: Size of the Garage storage volume
+        default: 5Gi
   spark-trino-superset-s3:
     description: Stack containing MinIO, Trino and Superset for data visualization
     stackableRelease: dev
@@ -348,7 +353,7 @@ stacks:
         default: adminadmin
       - name: supersetAdminPassword
         description: Password of the Superset admin user
-        default: adminadmin
+        default: adminadmin 
       - name: minioAdminPassword
         description: Password of the MinIO admin user
         default: adminadmin

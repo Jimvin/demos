@@ -1,0 +1,50 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: initialize-garage
+spec:
+  template:
+    spec:
+      serviceAccountName: demo-serviceaccount
+      containers:
+        - name: initialize-garage
+          image: oci.stackable.tech/sdp/tools:1.0.0-stackable0.0.0-dev
+          command:
+            - bash
+            - -xeuo
+            - pipefail
+            - -c
+            - |
+              echo 'Waiting for Garage to be deployed'
+              kubectl wait --for=create pod/garage-0 --timeout=30m
+              echo 'Waiting for Garage to be ready'
+              kubectl wait --for=condition=Ready pod/garage-0 --timeout=30m
+
+              echo 'Getting Garage node ID'
+              NODEID=$(kubectl exec garage-0 -- ./garage status | grep garage-0 | cut -f1 -d " ")
+
+              echo 'Setting storage layout in Garage'
+              kubectl exec garage-0 -- ./garage layout assign -z demozone -c {{ garageVolumeSize }} ${NODEID}
+
+              # echo 'Applying layout changes to Garage'
+              kubectl exec garage-0 -- ./garage layout apply --version 1
+              sleep 10 # wait for layout to be applied
+
+              echo 'Creating demo bucket in Garage'
+              kubectl exec garage-0 -- ./garage bucket create demo
+
+              echo 'Creating demo key in Garage'
+              OUTPUT=$(kubectl exec garage-0 --  ./garage key create demo-key)
+              ACCESS_KEY=$(echo "${OUTPUT}" | grep '^Key ID:' | awk '{print $3}')
+              SECRET_KEY=$(echo "${OUTPUT}" | grep '^Secret key:' | awk '{print $3}')
+
+              echo 'Updating S3 credentials secret for Druid'
+              kubectl patch secret druid-s3-credentials -p="{\"stringData\":{\"accessKey\": \"$ACCESS_KEY\", \"secretKey\": \"$SECRET_KEY\"}}"
+
+              echo 'Allowing read/write access to demo bucket'
+              kubectl exec garage-0 --  ./garage bucket allow --read --write --owner demo --key demo-key
+      restartPolicy: OnFailure
+  backoffLimit: 50
+
+
