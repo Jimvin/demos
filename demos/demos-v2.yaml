@@ -125,7 +125,7 @@ demos:
       - kafka
       - druid
       - superset
-      - minio
+      - garage
       - s3
       - water-levels
     manifests:

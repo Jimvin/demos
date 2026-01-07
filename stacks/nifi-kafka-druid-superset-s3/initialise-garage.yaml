@@ -29,7 +29,6 @@ spec:
 
               # echo 'Applying layout changes to Garage'
               kubectl exec garage-0 -- ./garage layout apply --version 1
-              sleep 10 # wait for layout to be applied
 
               echo 'Creating demo bucket in Garage'
               kubectl exec garage-0 -- ./garage bucket create demo
